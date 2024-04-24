@@ -3,6 +3,8 @@ import gpug from "gulp-pug";
 import del from "del";
 import ws from "gulp-webserver";
 import image from "gulp-image";
+import newer from "gulp-newer";
+// import imagemin from "gulp-imagemin";
 import dartSass from "sass";
 import gulpSass from "gulp-sass";
 // import autoprefixer from "gulp-autoprefixer";
@@ -10,6 +12,7 @@ import bro from "gulp-bro";
 import babelify from "babelify";
 import miniCSS from "gulp-csso";
 import fileinclude from "gulp-file-include";
+import concat from "gulp-concat";
 
 const sass = gulpSass(dartSass);
 const routes = {
@@ -23,7 +26,7 @@ const routes = {
     dest: "build",
   },
   img: {
-    src: "src/img/*",
+    src: "src/img/**/*",
     dest: "build/img",
   },
   scss: {
@@ -51,12 +54,17 @@ const webserver = () =>
   gulp.src("build").pipe(ws({ livereload: true, open: true }));
 
 const img = () =>
-  gulp.src(routes.img.src).pipe(image()).pipe(gulp.dest(routes.img.dest));
+  gulp
+    .src(routes.img.src)
+    .pipe(newer(routes.img.dest))
+    .pipe(image())
+    .pipe(gulp.dest(routes.img.dest));
 
 const styles = async () => {
   const autoprefixer = (await import("gulp-autoprefixer")).default;
   return gulp
     .src(routes.scss.src)
+    .pipe(concat("all.css"))
     .pipe(sass().on("error", sass.logError))
     .pipe(
       autoprefixer({
