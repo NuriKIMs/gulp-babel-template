@@ -9,9 +9,14 @@ import gulpSass from "gulp-sass";
 import bro from "gulp-bro";
 import babelify from "babelify";
 import miniCSS from "gulp-csso";
+import fileinclude from "gulp-file-include";
 
 const sass = gulpSass(dartSass);
 const routes = {
+  html: {
+    src: "src/**/*.html",
+    dest: "build/",
+  },
   pug: {
     watch: "src/**/*.pug",
     src: "src/*.pug",
@@ -30,6 +35,10 @@ const routes = {
     watch: "src/js/**/*.js",
     src: "src/js/main.js",
     dest: "build/js",
+  },
+  include: {
+    src: "src/include/*.html",
+    dest: "build/",
   },
 };
 
@@ -71,6 +80,17 @@ const js = () =>
     )
     .pipe(gulp.dest(routes.js.dest));
 
+const inc = () =>
+  gulp
+    .src([routes.html.src, "!" + routes.include.src])
+    .pipe(
+      fileinclude({
+        prefix: "@@",
+        basepath: "@file",
+      })
+    )
+    .pipe(gulp.dest(routes.include.dest));
+
 const watch = () => {
   gulp.watch(routes.pug.watch, pug);
   gulp.watch(routes.img.src, img);
@@ -80,7 +100,7 @@ const watch = () => {
 
 const prepare = gulp.series([clean, img]);
 
-const assets = gulp.series([pug, styles, js]);
+const assets = gulp.series([pug, styles, js, inc]);
 
 const live = gulp.parallel([webserver, watch]);
 

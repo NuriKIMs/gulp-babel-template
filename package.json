@@ -22,6 +22,7 @@
     "gulp-autoprefixer": "^9.0.0",
     "gulp-bro": "^2.0.0",
     "gulp-csso": "^4.0.1",
+    "gulp-file-include": "^2.3.0",
     "gulp-image": "^6.2.1",
     "gulp-pug": "^5.0.0",
     "gulp-sass": "^5.1.0",
