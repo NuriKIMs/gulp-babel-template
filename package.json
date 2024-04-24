@@ -1,0 +1,36 @@
+{
+  "name": "gulp-babel-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/register": "^7.23.7",
+    "babelify": "^10.0.0",
+    "browserslist": "last 2 versions",
+    "del": "^6.1.1",
+    "gulp": "^5.0.0",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-bro": "^2.0.0",
+    "gulp-csso": "^4.0.1",
+    "gulp-image": "^6.2.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-webserver": "^0.9.1",
+    "node-sass": "^9.0.0",
+    "sass": "^1.75.0",
+    "uglifyify": "^5.0.2"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
